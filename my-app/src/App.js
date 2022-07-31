@@ -2,8 +2,9 @@ import { useState } from 'react';
 import './App.css';
 import Alert from './commonComponents/Alert';
 import NavBar from "./commonComponents/NavBar";
-// import About from './components/About';
+import About from './components/About';
 import TextForm from './components/TextForm';
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   const heading = "Enter the text to analyze";
@@ -39,10 +40,10 @@ function App() {
     <div>
       <NavBar title="Text Utils" mode={mode} toogleMode={toogleMode} darkModeText={darkModeText} />
       {alert && <Alert alert={alert} />}
-      <div className="container my-3">
-        <TextForm heading={heading} mode={mode} showAlert={showAlert} />
-        {/* <About /> */}
-      </div>
+      <Routes>
+        <Route excat path='/' element={<TextForm heading={heading} mode={mode} showAlert={showAlert} />} />
+        <Route excat path='/about' element={<About />} />
+      </Routes >
     </div>
   );
 }

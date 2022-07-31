@@ -65,7 +65,7 @@ export default function TextForm(props) {
 
    return (
       <>
-         <div style={{ color: props.mode === 'light' ? 'black' : 'white' }}>
+         <div style={{ color: props.mode === 'light' ? 'black' : 'white' }} className="container my-3">
             <div className="mb-3">
                <label htmlFor="myBox" className="form-label">{props.heading}</label>
                <textarea className="form-control" id="myBox" rows="10" value={text} onChange={handleOnChange} placeholder="Enter your text here....."></textarea>
