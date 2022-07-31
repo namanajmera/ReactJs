@@ -71,11 +71,11 @@ export default function TextForm(props) {
                <textarea className="form-control" id="myBox" rows="10" value={text} onChange={handleOnChange} placeholder="Enter your text here....."></textarea>
                {/* {copied ? <p><strong>Copied to Clipboard</strong></p> : ''} */}
                {/* <Button btnText={"Convert to Uppercase"} onClick={handleUpperCaseClick}/> */}
-               <button className="btn btn-primary my-3 mx-1" onClick={handleUpperCaseClick}>Convert to Uppercase</button>
-               <button className="btn btn-primary my-3 mx-1" onClick={handleLowerCaseClick}>Convert to Lowercase</button>
-               <button className="btn btn-primary my-3 mx-1" onClick={handleCapitalizedCaseClick}>Convert to Capitalized Case</button>
-               <button className="btn btn-primary my-3 mx-1" onClick={handleCopyText}>Copy Text</button>
-               <button className="btn btn-primary my-3 mx-1" onClick={handleClearText}>Clear Text</button>
+               <button className="btn btn-primary my-3 mx-1" style={{ color: props.mode === 'light' ? 'white' : 'black' }} onClick={handleUpperCaseClick}>Convert to Uppercase</button>
+               <button className="btn btn-primary my-3 mx-1" style={{ color: props.mode === 'light' ? 'white' : 'black' }} onClick={handleLowerCaseClick}>Convert to Lowercase</button>
+               <button className="btn btn-primary my-3 mx-1" style={{ color: props.mode === 'light' ? 'white' : 'black' }} onClick={handleCapitalizedCaseClick}>Convert to Capitalized Case</button>
+               <button className="btn btn-primary my-3 mx-1" style={{ color: props.mode === 'light' ? 'white' : 'black' }} onClick={handleCopyText}>Copy Text</button>
+               <button className="btn btn-primary my-3 mx-1" style={{ color: props.mode === 'light' ? 'white' : 'black' }} onClick={handleClearText}>Clear Text</button>
             </div>
          </div>
          <div className="container my-3" style={{ color: props.mode === 'light' ? 'black' : 'white' }}>
