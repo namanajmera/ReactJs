@@ -9,7 +9,7 @@ export class NewsItem extends Component {
             <div className="card-body">
                <h5 className="card-title">{title}</h5>
                <p className="card-text">{description}</p>
-               <a href={url} target="_blank" rel='noreferrer' className="btn btn-sm btn-primary">Detailed news</a>
+               <a href={url} target="_blank" rel='noreferrer' className="btn btn-sm btn-primary" style={{ alignItems: "bottom-align" }}>Detailed news</a>
             </div>
          </div>
       )

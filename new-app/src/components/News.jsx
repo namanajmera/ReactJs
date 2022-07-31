@@ -1,40 +1,50 @@
 import React, { Component } from 'react'
+import Loading from './Loading';
 import NewsItem from './NewsItem'
+import Pagination from './Pagination';
 
 export class News extends Component {
-   articles = [
-      {
-         "source": {
-            "id": null,
-            "name": "The Indian Express"
-         },
-         "author": "Trends Desk",
-         "title": "Viral Twitter thread shows Stranger Things characters and their Indian doppelgangers",
-         "description": "Dustin from the Netflix series has been compared with actor Alam Khan, who played a young Duryodhan in Star Plus’s Mahabharat.",
-         "url": "https://indianexpress.com/article/trending/trending-in-india/twitter-thread-shows-stranger-things-characters-and-their-indian-doppelgangers-8041785/",
-         "urlToImage": "https://images.indianexpress.com/2022/07/stranger-things-look-alike.jpeg",
-         "publishedAt": "2022-07-20T12:47:34Z",
-         "content": "Earlier this week, fans of the sci-fi drama compared its characters to their lookalikes from Indian television shows and movies.\r\nIt all started when Twitter user Shikhar Sagar, who goes by the usern… [+1800 chars]"
-      },
-      {
-         "source": {
-            "id": null,
-            "name": "Mediagazer.com"
-         },
-         "author": null,
-         "title": "ITV reports H1 2022 revenue rose 8% YoY to £1.67B, driven by ITV Studios, up 16% YoY to £927M; total ad revenue rose 5% YoY and digital ad revenue rose 20% YoY (Naman Ramachandran/Variety)",
-         "description": "Naman Ramachandran / Variety:\nITV reports H1 2022 revenue rose 8% YoY to £1.67B, driven by ITV Studios, up 16% YoY to £927M; total ad revenue rose 5% YoY and digital ad revenue rose 20% YoY  —  U.K. broadcaster ITV's total external revenues are up 8% at £1.67…",
-         "url": "https://mediagazer.com/220728/p1",
-         "urlToImage": "https://variety.com/wp-content/uploads/2022/06/Love-Island.jpeg?w=1000",
-         "publishedAt": "2022-07-28T09:35:00Z",
-         "content": "Mediagazer presents the day's must-read media news on a single page.\r\nThe media business is in tumult: from the production side to\r\nthe distribution side, new technologies are upending the industry.\r… [+416 chars]"
-      },
-   ]
+   articles = []
    constructor() {
       super();
       this.state = {
          articles: this.articles,
+         loading: true,
+         page: 1,
+         prevDisabled: true,
+         nextDisabled: false,
+         totalPage: -1,
+         pageSize: 20,
+      }
+   }
+
+   callNewsApi = async (page) => {
+      this.setState({
+         loading: true,
+         prevDisabled: page === 1
+      })
+      let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=2401e93f8c14457fb12f18debe7accfb&page=${page}&pageSize=${this.state.pageSize}`;
+      let data = await fetch(url);
+      let parsedData = await data.json();
+      this.setState({
+         articles: parsedData.articles,
          loading: false,
+         page,
+         prevDisabled: page === 1,
+         totalPage: Math.ceil(parsedData.totalResults / this.state.pageSize),
+         nextDisabled: page === this.state.totalPage,
+      })
+   }
+
+   async componentWillMount() {
+      this.callNewsApi(1);
+   }
+
+   handlePageChange = (data) => {
+      if (data === 'next') {
+         this.callNewsApi(this.state.page + 1)
+      } else {
+         this.callNewsApi(this.state.page - 1)
       }
    }
 
@@ -44,13 +54,18 @@ export class News extends Component {
             <h1 className='my-2'>NewsMonkey - Top Headlines</h1>
             <div className="d-flex flex-row flex-wrap">
                {
-                  this.state.articles && this.state.articles.map((newsItem, index) => {
-                     newsItem.title = newsItem.title.slice(0, 30) + (newsItem.title.length > 30 ? '.....' : '');
-                     newsItem.description = newsItem.description.slice(0, 80) + (newsItem.description.length > 30 ? '.....' : '');
+                  !this.state.loading ? this.state.articles && this.state.articles.map((newsItem, index) => {
+                     newsItem.title = newsItem.title && newsItem.title.slice(0, 30) + (newsItem.title.length > 30 ? '.....' : '');
+                     newsItem.description = newsItem.description && newsItem.description.slice(0, 80) + (newsItem.description.length > 30 ? '.....' : '');
                      return <NewsItem articles={newsItem} key={index} />
-                  })
+                  }) :
+                     <Loading />
                }
             </div>
+            {
+               !this.state.loading
+               &&
+               <Pagination prevDisabled={this.state.prevDisabled} nextDisabled={this.state.nextDisabled} pageChange={this.handlePageChange} />}
          </div>
       )
    }
