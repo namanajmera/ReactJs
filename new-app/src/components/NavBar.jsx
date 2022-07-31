@@ -18,6 +18,25 @@ export default class NavBar extends Component {
                         <li className="nav-item">
                            <a className="nav-link" href="/about">About us</a>
                         </li>
+                        <li className="nav-item dropdown">
+                           <a className="nav-link dropdown-toggle" href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              Category
+                           </a>
+                           <ul className="dropdown-menu">
+                              <li><button className="dropdown-item" onClick={() => this.props.category('sports')}>Sports</button></li>
+                              <li><button className="dropdown-item" onClick={() => this.props.category('entertainment')}>Entertainment</button></li>
+                              <li><button className="dropdown-item" onClick={() => this.props.category('technology')}>Technology</button></li>
+                           </ul>
+                        </li>
+                        <li className="nav-item dropdown">
+                           <a className="nav-link dropdown-toggle" href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              Country
+                           </a>
+                           <ul className="dropdown-menu">
+                              <li><button className="dropdown-item" onClick={() => this.props.country('in')}>India</button></li>
+                              <li><button className="dropdown-item" onClick={() => this.props.country('us')}>US</button></li>
+                           </ul>
+                        </li>
                      </ul>
                   </div>
                </div>

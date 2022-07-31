@@ -15,15 +15,17 @@ export class News extends Component {
          nextDisabled: false,
          totalPage: -1,
          pageSize: 20,
+         category: '',
+         country: ''
       }
    }
 
-   callNewsApi = async (page) => {
+   callNewsApi = async (page, category = '', country = 'in') => {
       this.setState({
          loading: true,
          prevDisabled: page === 1
       })
-      let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=2401e93f8c14457fb12f18debe7accfb&page=${page}&pageSize=${this.state.pageSize}`;
+      let url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=2401e93f8c14457fb12f18debe7accfb&page=${page}&pageSize=${this.state.pageSize}`;
       let data = await fetch(url);
       let parsedData = await data.json();
       this.setState({
@@ -33,6 +35,8 @@ export class News extends Component {
          prevDisabled: page === 1,
          totalPage: Math.ceil(parsedData.totalResults / this.state.pageSize),
          nextDisabled: page === this.state.totalPage,
+         category,
+         country,
       })
    }
 
@@ -48,11 +52,20 @@ export class News extends Component {
       }
    }
 
+   category = (category) => {
+      this.callNewsApi(1, category, this.state.country);
+   }
+
+   country = (country) => {
+      console.log("country", country);
+      this.callNewsApi(1, this.state.category, country)
+   }
+
    render() {
       return (
          <div className='container my-10'>
-            <h1 className='my-2'>NewsMonkey - Top Headlines</h1>
-            <div className="d-flex flex-row flex-wrap">
+            <h1 className='my-2 d-flex justify-content-center'>NewsMonkey - Top Headlines</h1>
+            <div className="d-flex flex-row flex-wrap d-flex justify-content-center">
                {
                   !this.state.loading ? this.state.articles && this.state.articles.map((newsItem, index) => {
                      newsItem.title = newsItem.title && newsItem.title.slice(0, 30) + (newsItem.title.length > 30 ? '.....' : '');
