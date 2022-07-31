@@ -2,22 +2,37 @@ import React, { useState } from 'react'
 // import Button from '../commonComponents/Button';
 
 export default function TextForm(props) {
-   const [copied, setCopied] = useState(false);
+   // const [copied, setCopied] = useState(false);
    const handleUpperCaseClick = () => {
+      if (!text) {
+         return;
+      }
       let newText = text.toUpperCase();
       setText(newText);
+      props.showAlert("All character are in upper case.", "success");
    }
 
    const handleLowerCaseClick = () => {
+      if (!text) {
+         return;
+      }
       let newText = text.toLowerCase();
       setText(newText);
+      props.showAlert("All character are in lower case.", "success");
    }
 
    const handleClearText = () => {
+      if (!text) {
+         return;
+      }
       setText('');
+      props.showAlert("Cleared all character.", "success");
    }
 
    const handleCapitalizedCaseClick = () => {
+      if (!text) {
+         return;
+      }
       let finalText = '';
       let lowerCase = text.toLowerCase();
       var arrayOfString = lowerCase.split(' ');
@@ -27,16 +42,20 @@ export default function TextForm(props) {
          ele = upper + lower + ' ';
          finalText += ele;
       })
-      console.log("arrayOfString ==> ", arrayOfString);
       setText(finalText);
+      props.showAlert("All character are Capitalized.", "success");
    }
 
    const handleCopyText = () => {
-      setCopied(true)
+      if (!text) {
+         return;
+      }
+      // setCopied(true)
       navigator.clipboard.writeText(text);
-      setTimeout(() => {
-         setCopied(false)
-      }, 3000);
+      // setTimeout(() => {
+      //    setCopied(false)
+      // }, 3000);
+      props.showAlert("Copied to clipboard.", "success");
    }
 
    const handleOnChange = (event) => {
@@ -50,7 +69,7 @@ export default function TextForm(props) {
             <div className="mb-3">
                <label htmlFor="myBox" className="form-label">{props.heading}</label>
                <textarea className="form-control" id="myBox" rows="10" value={text} onChange={handleOnChange} placeholder="Enter your text here....."></textarea>
-               {copied ? <p><strong>Copied to Clipboard</strong></p> : ''}
+               {/* {copied ? <p><strong>Copied to Clipboard</strong></p> : ''} */}
                {/* <Button btnText={"Convert to Uppercase"} onClick={handleUpperCaseClick}/> */}
                <button className="btn btn-primary my-3 mx-1" onClick={handleUpperCaseClick}>Convert to Uppercase</button>
                <button className="btn btn-primary my-3 mx-1" onClick={handleLowerCaseClick}>Convert to Lowercase</button>
