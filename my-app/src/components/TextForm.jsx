@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-// import Button from '../commonComponents/Button';
+import Button from '../commonComponents/Button';
 
 export default function TextForm(props) {
    // const [copied, setCopied] = useState(false);
@@ -70,12 +70,18 @@ export default function TextForm(props) {
                <label htmlFor="myBox" className="form-label">{props.heading}</label>
                <textarea className="form-control" id="myBox" rows="10" value={text} onChange={handleOnChange} placeholder="Enter your text here....."></textarea>
                {/* {copied ? <p><strong>Copied to Clipboard</strong></p> : ''} */}
-               {/* <Button btnText={"Convert to Uppercase"} onClick={handleUpperCaseClick}/> */}
-               <button className="btn btn-primary my-3 mx-1" style={{ color: props.mode === 'light' ? 'white' : 'black' }} onClick={handleUpperCaseClick}>Convert to Uppercase</button>
-               <button className="btn btn-primary my-3 mx-1" style={{ color: props.mode === 'light' ? 'white' : 'black' }} onClick={handleLowerCaseClick}>Convert to Lowercase</button>
-               <button className="btn btn-primary my-3 mx-1" style={{ color: props.mode === 'light' ? 'white' : 'black' }} onClick={handleCapitalizedCaseClick}>Convert to Capitalized Case</button>
-               <button className="btn btn-primary my-3 mx-1" style={{ color: props.mode === 'light' ? 'white' : 'black' }} onClick={handleCopyText}>Copy Text</button>
-               <button className="btn btn-primary my-3 mx-1" style={{ color: props.mode === 'light' ? 'white' : 'black' }} onClick={handleClearText}>Clear Text</button>
+               <div style={{ display: 'flex' }}>
+                  <Button btnText={"Convert to Uppercase"} handleButton={handleUpperCaseClick} mode={props.mode} />
+                  <Button btnText={"Convert to Lowercase"} handleButton={handleLowerCaseClick} mode={props.mode} />
+                  <Button btnText={"Convert to Capitalized Case"} handleButton={handleCapitalizedCaseClick} mode={props.mode} />
+                  <Button btnText={"Copy Text"} handleButton={handleCopyText} mode={props.mode} />
+                  <Button btnText={"Clear Text"} handleButton={handleClearText} mode={props.mode} />
+               </div>
+               {/* <button className="btn btn-primary my-3 mx-1" style={{ color: props.mode === 'light' ? 'white' : 'black' }} onClick={handleUpperCaseClick}>Convert to Uppercase</button> */}
+               {/* <button className="btn btn-primary my-3 mx-1" style={{ color: props.mode === 'light' ? 'white' : 'black' }} onClick={handleLowerCaseClick}>Convert to Lowercase</button> */}
+               {/* <button className="btn btn-primary my-3 mx-1" style={{ color: props.mode === 'light' ? 'white' : 'black' }} onClick={handleCapitalizedCaseClick}>Convert to Capitalized Case</button> */}
+               {/* <button className="btn btn-primary my-3 mx-1" style={{ color: props.mode === 'light' ? 'white' : 'black' }} onClick={handleCopyText}>Copy Text</button> */}
+               {/* <button className="btn btn-primary my-3 mx-1" style={{ color: props.mode === 'light' ? 'white' : 'black' }} onClick={handleClearText}>Clear Text</button> */}
             </div>
          </div>
          <div className="container my-3" style={{ color: props.mode === 'light' ? 'black' : 'white' }}>
