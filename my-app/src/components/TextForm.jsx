@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+// import Button from '../commonComponents/Button';
 
 export default function TextForm(props) {
    const [copied, setCopied] = useState(false);
@@ -45,11 +46,12 @@ export default function TextForm(props) {
 
    return (
       <>
-         <div>
+         <div style={{ color: props.mode === 'light' ? 'black' : 'white' }}>
             <div className="mb-3">
                <label htmlFor="myBox" className="form-label">{props.heading}</label>
                <textarea className="form-control" id="myBox" rows="10" value={text} onChange={handleOnChange} placeholder="Enter your text here....."></textarea>
                {copied ? <p><strong>Copied to Clipboard</strong></p> : ''}
+               {/* <Button btnText={"Convert to Uppercase"} onClick={handleUpperCaseClick}/> */}
                <button className="btn btn-primary my-3 mx-1" onClick={handleUpperCaseClick}>Convert to Uppercase</button>
                <button className="btn btn-primary my-3 mx-1" onClick={handleLowerCaseClick}>Convert to Lowercase</button>
                <button className="btn btn-primary my-3 mx-1" onClick={handleCapitalizedCaseClick}>Convert to Capitalized Case</button>
@@ -57,11 +59,11 @@ export default function TextForm(props) {
                <button className="btn btn-primary my-3 mx-1" onClick={handleClearText}>Clear Text</button>
             </div>
          </div>
-         <div className="container my-3">
+         <div className="container my-3" style={{ color: props.mode === 'light' ? 'black' : 'white' }}>
             <h1>Your text Summary</h1>
             <p>{text.trim().split(" ")[0] === '' ? text.trim().split(" ").length - 1 : text.trim().split(" ").length} words and {text.length} characters.</p>
          </div>
-         <div className="container my-3">
+         <div className="container my-3" style={{ color: props.mode === 'light' ? 'black' : 'white' }}>
             <h1>Preview</h1>
             <p>{text}</p>
          </div>
