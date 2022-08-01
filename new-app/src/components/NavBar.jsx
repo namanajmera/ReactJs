@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 export default class NavBar extends Component {
    render() {
@@ -13,12 +14,12 @@ export default class NavBar extends Component {
                   <div className="collapse navbar-collapse" id="navbarSupportedContent">
                      <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                           <a className="nav-link active" aria-current="page" href="/">Home</a>
+                           <Link className="nav-link active" aria-current="page" to="/">Home</Link>
                         </li>
                         <li className="nav-item">
-                           <a className="nav-link" href="/about">About us</a>
+                           <Link className="nav-link" to="/about">About us</Link>
                         </li>
-                        <li className="nav-item dropdown">
+                        {/* <li className="nav-item dropdown">
                            <a className="nav-link dropdown-toggle" href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                               Category
                            </a>
@@ -27,7 +28,7 @@ export default class NavBar extends Component {
                               <li><button className="dropdown-item" onClick={() => this.props.category('entertainment')}>Entertainment</button></li>
                               <li><button className="dropdown-item" onClick={() => this.props.category('technology')}>Technology</button></li>
                            </ul>
-                        </li>
+                        </li> */}
                         <li className="nav-item dropdown">
                            <a className="nav-link dropdown-toggle" href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                               Country
@@ -36,6 +37,24 @@ export default class NavBar extends Component {
                               <li><button className="dropdown-item" onClick={() => this.props.country('in')}>India</button></li>
                               <li><button className="dropdown-item" onClick={() => this.props.country('us')}>US</button></li>
                            </ul>
+                        </li>
+                        <li className="nav-item">
+                           <Link className="nav-link active" aria-current="page" to="/business">Business</Link>
+                        </li>
+                        <li className="nav-item">
+                           <Link className="nav-link active" aria-current="page" to="/entertainment">Entertainment</Link>
+                        </li>
+                        <li className="nav-item">
+                           <Link className="nav-link active" aria-current="page" to="/health">Health</Link>
+                        </li>
+                        <li className="nav-item">
+                           <Link className="nav-link active" aria-current="page" to="/science">Science</Link>
+                        </li>
+                        <li className="nav-item">
+                           <Link className="nav-link active" aria-current="page" to="/sports">Sports</Link>
+                        </li>
+                        <li className="nav-item">
+                           <Link className="nav-link active" aria-current="page" to="/technology">Technology</Link>
                         </li>
                      </ul>
                   </div>

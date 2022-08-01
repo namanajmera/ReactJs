@@ -25,7 +25,7 @@ export class News extends Component {
          loading: true,
          prevDisabled: page === 1
       })
-      let url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=2401e93f8c14457fb12f18debe7accfb&page=${page}&pageSize=${this.state.pageSize}`;
+      let url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${this.props.category}&apiKey=2401e93f8c14457fb12f18debe7accfb&page=${page}&pageSize=${this.state.pageSize}`;
       let data = await fetch(url);
       let parsedData = await data.json();
       this.setState({
@@ -68,8 +68,8 @@ export class News extends Component {
             <div className="d-flex flex-row flex-wrap d-flex justify-content-center">
                {
                   !this.state.loading ? this.state.articles && this.state.articles.map((newsItem, index) => {
-                     newsItem.title = newsItem.title && newsItem.title.slice(0, 30) + (newsItem.title.length > 30 ? '.....' : '');
-                     newsItem.description = newsItem.description && newsItem.description.slice(0, 80) + (newsItem.description.length > 30 ? '.....' : '');
+                     newsItem.title = newsItem.title && newsItem.title.slice(0, 30) + (newsItem.title.length > 30 ? '...' : '');
+                     newsItem.description = newsItem.description && newsItem.description.slice(0, 80) + (newsItem.description.length > 30 ? '...' : '');
                      return <NewsItem articles={newsItem} key={index} />
                   }) :
                      <Loading />
