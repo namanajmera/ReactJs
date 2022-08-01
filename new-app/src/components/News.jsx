@@ -61,6 +61,15 @@ export class News extends Component {
       this.callNewsApi(1, this.state.category, country)
    }
 
+   formatDate = (date) => {
+      let dateObj = new Date(date);
+      let month = String((dateObj.getMonth() + 1)).padStart(2, '0');
+      let day = String(dateObj.getDate()).padStart(2, '0');
+      let year = dateObj.getFullYear()
+      let output = month + '/' + day + '/' + year;
+      return output;
+   }
+
    render() {
       return (
          <div className='container my-10'>
@@ -70,6 +79,7 @@ export class News extends Component {
                   !this.state.loading ? this.state.articles && this.state.articles.map((newsItem, index) => {
                      newsItem.title = newsItem.title && newsItem.title.slice(0, 30) + (newsItem.title.length > 30 ? '...' : '');
                      newsItem.description = newsItem.description && newsItem.description.slice(0, 80) + (newsItem.description.length > 30 ? '...' : '');
+                     newsItem.publishedAt = this.formatDate(newsItem.publishedAt);
                      return <NewsItem articles={newsItem} key={index} />
                   }) :
                      <Loading />
