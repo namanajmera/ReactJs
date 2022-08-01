@@ -5,8 +5,8 @@ import Pagination from './Pagination';
 
 export class News extends Component {
    articles = []
-   constructor() {
-      super();
+   constructor(props) {
+      super(props);
       this.state = {
          articles: this.articles,
          loading: true,
@@ -18,6 +18,11 @@ export class News extends Component {
          category: '',
          country: ''
       }
+      document.title = `${this.capitalizeFirstLetter(this.props.category)} -News`
+   }
+
+   capitalizeFirstLetter = (string) => {
+      return string.charAt(0).toUpperCase() + string.slice(1);
    }
 
    callNewsApi = async (page, category = '', country = 'in') => {
