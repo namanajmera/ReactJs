@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
+import InfiniteScroll from 'react-infinite-scroll-component';
 import Loading from './Loading';
 import NewsItem from './NewsItem'
-import Pagination from './Pagination';
+// import Pagination from './Pagination';
 
 export class News extends Component {
    articles = []
@@ -9,6 +10,7 @@ export class News extends Component {
       super(props);
       this.state = {
          articles: this.articles,
+         currentArticles: this.articles,
          loading: true,
          page: 1,
          prevDisabled: true,
@@ -16,7 +18,8 @@ export class News extends Component {
          totalPage: -1,
          pageSize: 20,
          category: '',
-         country: ''
+         country: '',
+         totalResults: 0
       }
       document.title = `${this.capitalizeFirstLetter(this.props.category)} -News`
    }
@@ -35,6 +38,7 @@ export class News extends Component {
       let parsedData = await data.json();
       this.setState({
          articles: parsedData.articles,
+         currentArticles: parsedData.articles,
          loading: false,
          page,
          prevDisabled: page === 1,
@@ -42,6 +46,7 @@ export class News extends Component {
          nextDisabled: page === this.state.totalPage,
          category,
          country,
+         totalResults: parsedData.totalResults
       })
    }
 
@@ -75,26 +80,53 @@ export class News extends Component {
       return output;
    }
 
+   fetchMoreData = async () => {
+      this.setState({
+         page: this.state.page + 1,
+      })
+      if (this.state.page !== this.state.totalPage) {
+         let url = `https://newsapi.org/v2/top-headlines?country=${this.state.country}&category=${this.props.category}&apiKey=2401e93f8c14457fb12f18debe7accfb&page=${this.state.page}&pageSize=${this.state.pageSize}`;
+         let data = await fetch(url);
+         let parsedData = await data.json();
+         this.setState({
+            articles: this.state.articles.concat(parsedData.articles),
+            loading: false,
+            totalPage: Math.ceil(parsedData.totalResults / this.state.pageSize),
+            totalResults: parsedData.totalResults
+         })
+      }
+   }
+
    render() {
       return (
-         <div className='container my-10'>
+         <>
             <h1 className='my-2 d-flex justify-content-center'>NewsMonkey - Top Headlines</h1>
-            <div className="d-flex flex-row flex-wrap d-flex justify-content-center">
-               {
-                  !this.state.loading ? this.state.articles && this.state.articles.map((newsItem, index) => {
-                     newsItem.title = newsItem.title && newsItem.title.slice(0, 30) + (newsItem.title.length > 30 ? '...' : '');
-                     newsItem.description = newsItem.description && newsItem.description.slice(0, 80) + (newsItem.description.length > 30 ? '...' : '');
-                     newsItem.publishedAt = this.formatDate(newsItem.publishedAt);
-                     return <NewsItem articles={newsItem} key={index} />
-                  }) :
-                     <Loading />
-               }
-            </div>
-            {
+            <InfiniteScroll
+               dataLength={this.state.articles.length}
+               next={this.fetchMoreData}
+               hasMore={this.state.articles.length !== this.state.totalResults}
+               loader={this.state.page === this.state.totalPage && <Loading />}
+               style={{ height: '0', overflow: 'none' }}
+            >
+               <div className='container my-10'>
+
+                  <div className="d-flex flex-row flex-wrap d-flex justify-content-center">
+                     {
+                        !this.state.loading ? this.state.articles && this.state.articles.map((newsItem, index) => {
+                           newsItem.title = newsItem.title && newsItem.title.slice(0, 30) + (newsItem.title.length > 30 ? '...' : '');
+                           newsItem.description = newsItem.description && newsItem.description.slice(0, 80) + (newsItem.description.length > 30 ? '...' : '');
+                           newsItem.publishedAt = this.formatDate(newsItem.publishedAt);
+                           return <NewsItem articles={newsItem} key={index} />
+                        }) : <Loading />
+                     }
+                  </div>
+               </div>
+            </InfiniteScroll>
+            {/* {
                !this.state.loading
                &&
-               <Pagination prevDisabled={this.state.prevDisabled} nextDisabled={this.state.nextDisabled} pageChange={this.handlePageChange} />}
-         </div>
+               <Pagination prevDisabled={this.state.prevDisabled} nextDisabled={this.state.nextDisabled} pageChange={this.handlePageChange} />} */}
+         </>
       )
    }
 }
