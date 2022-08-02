@@ -6,7 +6,8 @@ import News from './components/News';
 import { Routes, Route } from "react-router-dom";
 
 export default class App extends Component {
-    category = [
+  apiKey = process.env.REACT_APP_API_KEY
+  category = [
     {
       path: '/',
       category: 'general'
@@ -43,8 +44,8 @@ export default class App extends Component {
         <Routes>
           {/* <Route path="/?" element={ <News ref={instance => { this.content = instance; }} /> } /> */}
           {
-            this.category && this.category.map((element,index) => {
-              return <Route excat path={element.path} element={<News key={element.category} category={element.category} ref={instance => { this.content = instance; }} />} key={index}/>
+            this.category && this.category.map((element, index) => {
+              return <Route excat path={element.path} element={<News key={element.category} category={element.category} ref={instance => { this.content = instance; }} apiKey={this.apiKey} />} key={index}/>
             })
           }
         </Routes>
