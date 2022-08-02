@@ -50,7 +50,7 @@ export class News extends Component {
       })
    }
 
-   async componentWillMount() {
+   async componentDidMount() {
       this.callNewsApi(1);
    }
 
@@ -85,7 +85,7 @@ export class News extends Component {
          page: this.state.page + 1,
       })
       if (this.state.page !== this.state.totalPage) {
-         let url = `https://newsapi.org/v2/top-headlines?country=${this.state.country}&category=${this.props.category}&apiKey=2401e93f8c14457fb12f18debe7accfb&page=${this.state.page}&pageSize=${this.state.pageSize}`;
+         let url = `https://newsapi.org/v2/top-headlines?country=${this.state.country}&category=${this.props.category}&apiKey=2401e93f8c14457fb12f18debe7accfb&page=${this.state.page + 1}&pageSize=${this.state.pageSize}`;
          let data = await fetch(url);
          let parsedData = await data.json();
          this.setState({
