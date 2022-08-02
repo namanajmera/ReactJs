@@ -4,7 +4,7 @@ export default function NewsItem(props) {
    const { title, description, urlToImage, url, publishedAt, author } = props.articles;
    return (
       <div className="card mx-2 my-5" style={{ width: "18rem" }}>
-         <img src={urlToImage} className="card-img-top" alt="..." />
+         <img src={urlToImage} className="card-img-top" alt="..." style={{ width: '100%', height: '50%'}}/>
          <div className="card-body">
             <h5 className="card-title">{title}</h5>
             <p className="card-text">{description}</p>

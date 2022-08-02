@@ -24,6 +24,7 @@ export default function News(props) {
       })
       document.title = `${capitalizeFirstLetter(props.category)} -News`;
       callNewsApi(1);
+      // eslint-disable-next-line
    }, [articles,props.category])
 
    const capitalizeFirstLetter = (string) => {
@@ -96,7 +97,7 @@ export default function News(props) {
 
    return (
       <>
-         <h1 className='my-2 d-flex justify-content-center'>NewsMonkey - Top Headlines</h1>
+         <h1 className='my-2 d-flex justify-content-center' style={{ marginTop:"63px !important"}}>NewsMonkey - Top Headlines</h1>
          {/* <InfiniteScroll
             dataLength={payload.articles && payload.articles.length}
             next={fetchMoreData}
