@@ -1,13 +1,11 @@
 import './App.css';
-
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import NavBar from './components/NavBar';
 import News from './components/News';
 import { Routes, Route } from "react-router-dom";
 
-export default class App extends Component {
-  apiKey = process.env.REACT_APP_API_KEY
-  category = [
+export default function App() {
+  const [category] = useState([
     {
       path: '/',
       category: 'general'
@@ -36,21 +34,21 @@ export default class App extends Component {
       path: '/technology',
       category: 'technology'
     },
-  ]
-  render() {
-    return (
-      <div>
-        <NavBar category={(data) => this.content.category(data)} country={(data1) => this.content.country(data1)} />
-        <Routes>
-          {/* <Route path="/?" element={ <News ref={instance => { this.content = instance; }} /> } /> */}
-          {
-            this.category && this.category.map((element, index) => {
-              return <Route excat path={element.path} element={<News key={element.category} category={element.category} ref={instance => { this.content = instance; }} apiKey={this.apiKey} />} key={index}/>
-            })
-          }
-        </Routes>
-      </div>
-    )
-  }
+  ])
+  const [apiKey] = useState(process.env.REACT_APP_API_KEY);
+  return (
+    <div>
+      {/* category={(data) => content.category(data)} country={(data1) => content.country(data1)} */}
+      <NavBar  />
+      <Routes>
+        {/* <Route path="/?" element={ <News ref={instance => { this.content = instance; }} /> } /> */}
+        {/* ref={instance => { this.content = instance; }} */}
+        {
+          category && category.map((element, index) => {
+            return <Route excat path={element.path} element={<News key={element.category} category={element.category}  apiKey={apiKey} />} key={index} />
+          })
+        }
+      </Routes>
+    </div>
+  )
 }
-
