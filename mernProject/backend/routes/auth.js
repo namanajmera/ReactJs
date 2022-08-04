@@ -4,6 +4,7 @@ const router = express.Router();
 const {body, validationResult} = require('express-validator')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const JWT_SECRET = 'iNotebookApp';
 
 router.post('/createUser',[
    body('email','Please enter a valid Email').isEmail(),
@@ -20,7 +21,16 @@ router.post('/createUser',[
       name: req.body.name,
       email: req.body.email,
       password: secPass,
-   }).then(user => res.json(user)).catch(error => {
+   }).then(user => {
+      const data = {
+         user: {
+            id: user.id,
+         }
+      }
+      const authToken = jwt.sign(data,JWT_SECRET);
+      console.log(authToken);
+      res.json({authToken})
+   }).catch(error => {
       console.log(error);
       res.json({error:"Please enter a unique value for email.",message:error.message})
    })
