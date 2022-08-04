@@ -1,17 +1,19 @@
 import './App.css';
 import { Routes, Route } from "react-router-dom";
 import Home from './components/Home';
+import About from './components/About';
 import Navbar from './components/Navbar';
 
 function App() {
   return (
-    <div className="App">
-      <Navbar/>
-        <h1>Naman Ajmera</h1>
+    <>
+      <Navbar />
+      <h1>Naman Ajmera</h1>
       <Routes>
-        <Route excat path="/" element={<Home/>}/>
+        <Route excat path="/" element={<Home />} />
+        <Route excat path="/about" element={<About />} />
       </Routes>
-    </div>
+    </>
   );
 }
 
