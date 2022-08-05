@@ -10,11 +10,12 @@ function App() {
     <>
       <NoteState>
         <Navbar />
-        <h1>Naman Ajmera</h1>
-        <Routes>
-          <Route excat path="/" element={<Home />} />
-          <Route excat path="/about" element={<About />} />
-        </Routes>
+        <div className="container">
+          <Routes>
+            <Route excat path="/" element={<Home />} />
+            <Route excat path="/about" element={<About />} />
+          </Routes>
+        </div>
       </NoteState>
     </>
   );
