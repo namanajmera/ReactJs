@@ -1,11 +1,7 @@
-import React, { useContext } from 'react'
-import noteContext from '../context/NotesContext/noteContext'
-import NotesCard from './NotesCard';
+import React from 'react'
+import Notes from './Notes'
 
 export default function Home() {
-  const notesContext = useContext(noteContext);
-  // eslint-disable-next-line
-  const { notes, setNotes } = notesContext;
 
   return (
     <>
@@ -29,16 +25,7 @@ export default function Home() {
         </form>
       </div>
 
-      <div className='container my-3'>
-        <h2>Your Notes</h2>
-        <div className='d-flex'>
-          {
-            notes.map((note, index) => {
-              return <NotesCard note={note} key={index} />
-            })
-          }
-        </div>
-      </div>
+      <Notes />
     </>
   )
 }
