@@ -4,7 +4,7 @@ import noteContext from '../context/NotesContext/noteContext'
 export default function NotesItem(props) {
    const { title, description, tag, _id } = props.noteItem;
    const notesContext = useContext(noteContext);
-   const { deleteNote } = notesContext;
+   const { deleteNote,editNote } = notesContext;
 
    const handleDelete = (id) => {
       console.log("id",id);
@@ -12,6 +12,7 @@ export default function NotesItem(props) {
    }
    
    const handleEdit = (id) => {
+      editNote(id, "title", "description", "tag");
       console.log("id",id);
    }
 
