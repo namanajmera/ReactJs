@@ -52,8 +52,41 @@ const NoteState = (props) => {
    // eslint-disable-next-line
    const [notes, setNotes] = useState(notesInitial)
 
+   // Add a Note
+   const addNote = (title,description,tag) => {
+      console.log(title,description,tag);
+      let note = {
+         "_id": "62ecef3782c58fdbd5236590",
+         "user": "62ecee5682c58fdbd52365ab",
+         title,
+         description,
+         tag,
+         "date": "2022-08-05T10:21:27.394Z",
+         "__v": 0
+      }
+      console.log("notes", notes);
+      setNotes(notes.concat(note))
+      console.log("notes", notes);
+   }
+
+   // Delete a Note
+   const deleteNote = (id) => {
+      let noteIndex = notes.findIndex((elem) => { return elem._id === id });
+      notes.splice(noteIndex, 1)
+      console.log("notesData ==>", notes);
+      setNotes(notes)
+      console.log(notes);
+   }
+
+   // Edit a Note
+   const editNote = (id) => {
+      let noteIndex = notes.findIndex((elem) => { return elem._id === id });
+      console.log(noteIndex);
+
+   }
+
    return (
-      <noteContext.Provider value={{ notes, setNotes }}>
+      <noteContext.Provider value={{ notes, setNotes, addNote, editNote, deleteNote }}>
          {props.children}
       </noteContext.Provider>
    )
