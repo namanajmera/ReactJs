@@ -71,11 +71,11 @@ const NoteState = (props) => {
 
    // Delete a Note
    const deleteNote = (id) => {
-      let noteIndex = notes.findIndex((elem) => { return elem._id === id });
-      notes.splice(noteIndex, 1)
-      console.log("notesData ==>", notes);
-      setNotes(notes)
-      console.log(notes);
+      let newNotes = notes.filter((note) => {
+         return note._id!== id;
+      })
+      
+      setNotes(newNotes);
    }
 
    // Edit a Note

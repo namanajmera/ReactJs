@@ -8,14 +8,16 @@ export default function AddNotes() {
 
    const title = useFormInputs('');
    const description = useFormInputs('');
+   const tag = useFormInputs('');
 
    const handleAddNote = (event) => {
-      event.preventDefault();
-      addNote(title.value, description.value, 'Personal');
+      event.preventDefault();  
+      addNote(title.value, description.value, tag.value);
       title.setValue('');
       description.setValue('');
+      tag.setValue('');
    }
-   
+
   return (
      <div className='container my-3'>
         <h2>Add a Note</h2>
@@ -30,7 +32,12 @@ export default function AddNotes() {
             <input type="text" className="form-control" id="description" name='description' placeholder='Enter here....' {...description} />
             <div>{description.value}</div>
           </div>
-          <button type="submit" className="btn btn-primary" onClick={handleAddNote}>Submit</button>
+          <div className="mb-3">
+            <label htmlFor="tag" className="form-label">Tag</label>
+            <input type="text" className="form-control" id="tag" name='tag' placeholder='Enter here....' {...tag} />
+            <div>{tag.value}</div>
+          </div>
+          <button type="submit" className="btn btn-primary" disabled={!title.value || !description.value || !tag.value} onClick={handleAddNote}>Add Note</button>
         </form>
       </div>
   )
