@@ -26,7 +26,7 @@ export default function Navbar() {
           </ul>
           <form className="d-flex" role="search">
             <Link className={`btn ${currentPath === '/login' ? "btn-primary" : "btn-outline-primary"}  mx-2`} type="submit" to="/login">Login</Link>
-            <Link className={`btn ${currentPath === '/signup' ? "btn-primary" : "btn-outline-primary"} btn-outline-primary mx-2`} type="submit" to="/signup">Sign-Up</Link>
+            <Link className={`btn ${currentPath === '/signup' ? "btn-primary" : "btn-outline-primary"} mx-2`} type="submit" to="/signup">Sign-Up</Link>
           </form>
         </div>
       </div>
