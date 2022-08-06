@@ -1,12 +1,19 @@
 import noteContext from "./noteContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const NoteState = (props) => {
    const host = "http://localhost:5000/api/";
+   let token = localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : ''
    const headers = {
       'Content-Type': 'application/json',
-      'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjJlZGYxZTk0ZmE0ZDQ1ZjEwYjlhYzc1In0sImlhdCI6MTY1OTc2MTQzMH0.VukQjVklTwHM8_VgNgjWOp_vNYdwUlnVOR9pLqKuroE'
+      'auth-token': token
    }
+   useEffect(() => {
+      // eslint-disable-next-line
+      token = localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : '';
+      headers["auth-token"] = token;
+      console.log("token", token);
+   }, [])
    // eslint-disable-next-line
    const [notes, setNotes] = useState([]);
 
