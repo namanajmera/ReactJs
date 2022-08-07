@@ -1,18 +1,19 @@
 import React from 'react'
 import { useDispatch } from 'react-redux/es/hooks/useDispatch';
 import { actionCreators } from './state';
-// import { bindActionCreators } from 'redux';
 import { useSelector } from 'react-redux/es/exports'
+import { bindActionCreators } from 'redux';
 
 function Shop() {
   const dispatch = useDispatch();
   const amount = useSelector(state => state.amount)
+  const { depositMoney, withdrawMoney } = bindActionCreators(actionCreators,dispatch)
 
   const handleBalance = (type) => {
     if (type === 'deposit') {
-      dispatch(actionCreators.depositMoney(100,type))
+      depositMoney(100)
     }else{
-      dispatch(actionCreators.withdrawMoney(100,type))
+      withdrawMoney(100)
     }
   }
 

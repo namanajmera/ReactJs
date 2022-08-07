@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux/es/exports'
 
 export default function Navbar() {
    const amount = useSelector(state => state.amount)
-   console.log("amount ==>", amount);
   return (
      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
