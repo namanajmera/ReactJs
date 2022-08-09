@@ -3,6 +3,7 @@ import './App.css';
 import Button from './components/Button';
 import Greet from './components/Greet';
 import Heading from './components/Heading';
+import LoggedIn from './components/LoggedIn';
 import Test from './components/Test';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <Button handleClick={(e, id) => {
         console.log(id, "Button Clicked.", e);
       }} />
+      <LoggedIn />
     </div>
   );
 }
