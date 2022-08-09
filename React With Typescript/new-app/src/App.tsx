@@ -12,8 +12,8 @@ function App() {
       <Test>
         <Heading>Tesing Form Node.</Heading>
       </Test>
-      <Button handleClick={() => {
-        console.log("Button Clicked.");
+      <Button handleClick={(e, id) => {
+        console.log(id, "Button Clicked.", e);
       }} />
     </div>
   );
